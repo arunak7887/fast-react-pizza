@@ -1,4 +1,5 @@
-import { useState, useNavigate } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function SearchOrder() {
   const [query, setQuery] = useState("");
@@ -6,8 +7,11 @@ export function SearchOrder() {
 
   function handleSubmit(e) {
     e.preventDefault();
-
+    if (!query) {
+      return;
+    }
     navigate(`/order/${query}`);
+    setQuery("");
   }
 
   return (
