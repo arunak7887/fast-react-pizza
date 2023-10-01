@@ -17,7 +17,7 @@ const cartSlice = createSlice({
       // payload = id of the item (pizzaId)
 
       state.cart = state.cart.filter(function (citem) {
-        return citem.pizzaId !== action.payload;
+        return citem.pizzaID !== action.payload;
       });
     },
 

@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import { LinkButton } from "../../ui/LinkButton";
 import { Button } from "../../ui/Button";
 import CartItem from "./CartItem";
 import { clearCart } from "./cartSlice";
 import { useSelector, useDispatch } from "react-redux";
+import EmptyCart from "../cart/EmptyCart";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -14,6 +14,14 @@ function Cart() {
   const cart = useSelector(function (state) {
     return state.cart.cart;
   });
+
+  const cartSize = useSelector(function (state) {
+    return state.cart.cart.length;
+  });
+
+  if (cartSize === 0) {
+    return <EmptyCart />;
+  }
 
   function handleClearCart() {
     dispatch(clearCart());
@@ -31,7 +39,7 @@ function Cart() {
       </ul>
 
       <div className="mt-6 space-x-2">
-        <Button to="/order/new" type="primary">
+        <Button to="/order/new" type="primary" cartSize={cartSize}>
           Order pizzas
         </Button>
         <Button type="secondary" onClick={handleClearCart}>
