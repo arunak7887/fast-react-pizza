@@ -1,8 +1,19 @@
 import { formatCurrency } from "../../utils/helpers";
 import { Button } from "../../ui/Button";
+import { addItem } from "../cart/cartSlice";
 
 function MenuItem({ pizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  function handleAddToCart() {
+    const newItem = {
+      id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+  }
 
   return (
     <li className="flex gap-4 py-2">
@@ -24,7 +35,9 @@ function MenuItem({ pizza }) {
               Sold out
             </p>
           )}
-          <Button type="small">Add to Cart</Button>
+          <Button type="small" soldOut={soldOut} onClick={handleAddToCart}>
+            Add to Cart
+          </Button>
         </div>
       </div>
     </li>
