@@ -23,13 +23,13 @@ export function Button({ children, disabled, to, type, soldOut, onClick }) {
 
   if (soldOut) {
     return (
-      <button disabled={soldOut} onClick={onClick} className={styles[type]}>
+      <button disabled={soldOut} className={styles[type]}>
         {children}
       </button>
     );
   }
 
-  if (soldOut === "false") {
+  if (soldOut === false) {
     return (
       <button onClick={onClick} className={styles[type]}>
         {children}
@@ -38,7 +38,7 @@ export function Button({ children, disabled, to, type, soldOut, onClick }) {
   }
 
   return (
-    <button disabled={disabled} className={styles[type]}>
+    <button disabled={disabled} className={styles[type]} onClick={onClick}>
       {children}
     </button>
   );

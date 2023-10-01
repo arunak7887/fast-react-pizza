@@ -2,38 +2,22 @@ import { Link } from "react-router-dom";
 import { LinkButton } from "../../ui/LinkButton";
 import { Button } from "../../ui/Button";
 import CartItem from "./CartItem";
-import { useSelector } from "react-redux";
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { clearCart } from "./cartSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 function Cart() {
+  const dispatch = useDispatch();
+
   const userName = useSelector(function (state) {
     return state.user.userName;
   });
-  const cart = fakeCart;
+  const cart = useSelector(function (state) {
+    return state.cart.cart;
+  });
 
+  function handleClearCart() {
+    dispatch(clearCart());
+  }
   return (
     <div className="px-4 py-3">
       <LinkButton to="/menu">&larr; Back to menu</LinkButton>
@@ -50,7 +34,9 @@ function Cart() {
         <Button to="/order/new" type="primary">
           Order pizzas
         </Button>
-        <Button type="secondary">Clear cart</Button>
+        <Button type="secondary" onClick={handleClearCart}>
+          Clear cart
+        </Button>
       </div>
     </div>
   );
