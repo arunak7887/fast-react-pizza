@@ -17,17 +17,15 @@ const cartSlice = createSlice({
       // payload = id of the item (pizzaId)
 
       state.cart = state.cart.filter(function (citem) {
-        return citem.pizzaID !== action.payload;
+        return citem.pizzaId !== action.payload;
       });
     },
 
     increaseItemQuantity(state, action) {
       // payload = pizzaId
-
       const item = state.cart.find(function (citem) {
         return citem.pizzaId === action.payload;
       });
-
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
@@ -38,7 +36,9 @@ const cartSlice = createSlice({
       const item = state.cart.find(function (citem) {
         return citem.pizzaId === action.payload;
       });
-
+      if (item.quantity <= 0) {
+        return;
+      }
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
     },
