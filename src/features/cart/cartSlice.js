@@ -36,9 +36,7 @@ const cartSlice = createSlice({
       const item = state.cart.find(function (citem) {
         return citem.pizzaId === action.payload;
       });
-      if (item.quantity <= 0) {
-        return;
-      }
+
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
     },

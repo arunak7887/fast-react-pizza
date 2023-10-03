@@ -19,7 +19,9 @@ function CartItem({ item, key }) {
   function handleDecreaseQuantity() {
     if (quantity <= 1) {
       dispatch(deleteItem(pizzaId));
+      return;
     }
+
     dispatch(decreaseItemQuantity(pizzaId));
   }
 

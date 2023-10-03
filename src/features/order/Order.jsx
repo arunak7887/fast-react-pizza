@@ -25,6 +25,7 @@ function Order() {
     estimatedDelivery,
     cart,
   } = orderData;
+
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (

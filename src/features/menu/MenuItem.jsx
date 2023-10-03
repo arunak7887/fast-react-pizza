@@ -50,6 +50,10 @@ function MenuItem({ pizza }) {
   }
 
   function handleDecreasePizzaQuantity() {
+    if (pizzaObject.quantity <= 1) {
+      dispatch(deleteItem(id));
+      return;
+    }
     dispatch(decreaseItemQuantity(id));
   }
 
