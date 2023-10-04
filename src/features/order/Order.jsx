@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 // Test ID: IIDSAT
 
-import { useLoaderData } from "react-router-dom";
+import { useFetcher, useLoaderData } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 import OrderItem from "./OrderItem";
 
@@ -10,12 +10,23 @@ import {
   formatCurrency,
   formatDate,
 } from "../../utils/helpers";
+import { useEffect } from "react";
 
 function Order() {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
 
   const orderData = useLoaderData();
 
+  const fetcher = useFetcher();
+
+  useEffect(
+    function () {
+      if (!fetcher.data && fetcher.state === "idle") {
+        fetcher.load("/menu");
+      }
+    },
+    [fetcher],
+  );
   const {
     id,
     status,
@@ -57,7 +68,18 @@ function Order() {
 
       <ul className="divide-y divide-stone-200 border-b border-t">
         {cart.map(function (item) {
-          return <OrderItem item={item} key={item.id} />;
+          return (
+            <OrderItem
+              item={item}
+              key={item.id}
+              isLoadingIngredients={fetcher.state === "loading"}
+              ingredients={
+                fetcher?.data?.find(function (elem) {
+                  return elem.id === item.pizzaId;
+                })?.ingredients ?? []
+              }
+            />
+          );
         })}
       </ul>
 
