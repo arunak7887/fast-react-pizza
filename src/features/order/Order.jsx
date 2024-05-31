@@ -11,7 +11,7 @@ import {
   formatDate,
 } from "../../utils/helpers";
 import { useEffect } from "react";
-import { UpadateOrder } from "./UpdateOrder";
+import { UpdateOrder } from "./UpdateOrder";
 
 function Order() {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
@@ -97,7 +97,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
-      {!priority && <UpadateOrder order={Order} />}
+      {!priority && <UpdateOrder order={Order} />}
     </div>
   );
 }
